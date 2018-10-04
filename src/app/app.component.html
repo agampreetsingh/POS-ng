@@ -1,0 +1,80 @@
+<!--Login Div-->
+<div *ngIf='loginData==null' class="jumbotron">
+        <h1 class="display-4">Nagarro Shoppe</h1>
+        <p class="lead">An application made to replicate a POS system for the exit evaluation</p>
+        <hr class="my-4">
+        <p>Tech stack: J2EE, JAVA Spring, Hibernate, REST, MySQL, Angular</p>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                Login
+              </button>
+      </div>
+<!-- Button trigger modal -->
+
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Login</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                    <form>
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">EmployeeID</label>
+                              <input #username type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter EmployeeID">
+                              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputPassword1">Password</label>
+                              <input #password type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            </div>
+                        </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" >Close</button>
+              <button type="button" class="btn btn-primary" (click)="login(username.value,password.value)" data-dismiss="modal">Login</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<!--end of login div-->
+
+
+    <!--Main div-->
+    <div *ngIf='loginData!=null' class="container-fluid tight">
+      <div class="row tight">
+          
+          
+          <!--sidebar-->
+         <app-sidebar class="col-1 bg-dark"></app-sidebar>
+          <!--end of sidebar-->
+        
+          <!--product pane-->
+         <app-productpane class="col-6 bg-light top-tight"  (update)="refreshCart()"></app-productpane>
+         <!--end of product pane-->
+
+
+          <!--cart-->
+          <app-actionpane class="col-5 bg-light top-tight" [refreshFlag]="[flag]"></app-actionpane>
+          <!--end of cart-->
+  
+
+         
+
+      </div>
+
+     
+  </div>
+  <div *ngIf='loginData' class="myfooter text-white">
+      Online : {{loginData.data.name}}
+    
+  </div>
+
+
+
+ 

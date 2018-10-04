@@ -1,0 +1,26 @@
+<!--Product-->      
+<div class="row">
+
+<br/>
+
+    <div *ngFor="let product of products" class="col-4" style="margin-bottom: 1%; height: 30%;margin-top: 1%;">
+
+        <div class="card">
+            <div class="card-header">
+              {{product.code}}
+              <div class="badge badge-info" >{{product.stock}} in stock</div>
+            </div>
+            <div class="card-body">
+              <h6    class="card-title">{{product.name}}</h6>
+              <p class="card-text">{{product.description}}</p>
+              <h5 class="card-title">Rs. {{product.price}}</h5>
+              <hr>
+              <a href="#" class="btn btn-primary" (click)="addToCart(product)">Add to cart</a>
+            </div>
+          </div>
+    
+    
+    
+    </div>
+</div>                           
+<!--End of Product-->

@@ -1,0 +1,31 @@
+
+                
+  <nav class="navbar navbar-primary sticky-top position-sticky" style="background-color:indigo">
+          
+      <div class="input-group">
+                  <input #searchKey (focus)="onKey($event)" (keyup)="onKey($event)" (blur)="clear()" type="text" class="form-control" placeholder="Search Product..." aria-label="Recipient's username" aria-describedby="basic-addon2">
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="basic-addon2"><i class="material-icons">
+                          search
+                          </i></span>
+                          
+                  </div>
+                  
+                  
+              </div>
+              
+                <div class="input-group">
+                  <ul class="list-group input-group" style="z-index: 1; position: absolute;">
+                    <li class="list-group-item" *ngFor="let searchedProduct of searchedProducts">{{searchedProduct.name}}</li>
+                    
+                  </ul>
+                </div>
+     
+          
+        </nav>
+
+  
+        <div class="container-fluid scrollable ">
+          <app-product [searchKey]='searchKey.value' (update)="refreshCart()"></app-product>
+
+          </div>

@@ -1,0 +1,223 @@
+<br/>
+
+  
+  <div class="row">
+
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-outline-secondary btn-sq-lg" data-toggle="modal" data-target="#exampleModal" (click)="getOrdersCompleted()">
+        
+      
+          <i class="material-icons md-48">
+                  receipt
+                  </i>
+              <br/>
+                  Orders
+              </button>
+  </div>
+  <br/>
+  <div class="row">
+        <button type="button" class="btn btn-outline-secondary btn-sq-lg" data-toggle="modal" data-target="#exampleModal2" (click)="getOrdersOnHold()">
+        
+      
+                <i class="material-icons md-48">
+                        how_to_vote
+                        </i>
+                    <br/>
+                        savedOrders
+                    </button>
+  </div>
+  <br/>
+  <div class="row">
+    <a href="http://localhost:8080/pos/report" style="none" >
+            <button type="button" class="btn btn-outline-secondary btn-sq-lg">
+          <i class="material-icons md-48">
+                assessment
+                </i>
+            <br/>
+                Reports
+            </button>
+          </a>
+    
+  </div>
+
+  
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Completed Orders</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                
+<!--Orders-->
+
+<div class="list-group">
+        <div *ngFor="let order of orders" class="list-group-item list-group-item-action flex-column" data-toggle="modal" data-target="#exampleModal3" (click)="onOrderSelect(order.id)">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">#{{order.id}}</h5>
+            <small>Date: {{order.date | date :  "dd.MM.y" }}
+            </small>
+          </div>
+        <div class="row alert alert-info">
+            <div class="col-4">
+                    {{order.customer.name}}
+            </div>
+            <div class="col-4 text-center">
+                    <small  class="text-secondary">{{order.customer.mobile}}
+                        </small>
+                </div>
+            <div class="col-4 text-right">
+                Rs.{{order.amount}}
+                </div>
+                
+            
+        </div>
+        
+        <div class="text-right"> <small class="badge badge-secondary text-right">{{order.status}}</small></div>
+         
+        </div>
+        
+      </div>
+
+
+<!--end of orders-->
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+<!--modal for saved-->
+      <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Saved Orders</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    
+    <!--Order details-->
+    <div class="list-group">
+            <div *ngFor="let order of orders" class="list-group-item list-group-item-action flex-column"
+            data-target="#exampleModal3" (click)="onOrderSelect(order.id)">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">#{{order.id}}</h5>
+                <small>Date: {{order.date | date :  "dd.MM.y" }}
+                </small>
+              </div>
+            <div class="row alert alert-info">
+                <div class="col-4">
+                        {{order.customer.name}}
+                </div>
+                <div class="col-4 text-center">
+                        <small  class="text-secondary">{{order.customer.mobile}}
+                            </small>
+                    </div>
+                <div class="col-4 text-right">
+                    Rs.{{order.amount}}
+                    </div>
+                    
+                
+            </div>
+            
+            <div class=
+            <div class="text-right"> <small class="badge badge-secondary text-right">{{order.status}}</small></div>
+             
+            </div>
+            
+          </div>
+    
+    
+    <!--end of order details-->
+    
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+<!--modal for particular order detail-->
+<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Details</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div *ngIf='myOrder' class="modal-body">
+                
+<!--Detailed order-->
+  
+<div class="card">
+        <div class="card-header text-center">
+          OrderId: #{{myOrder.order.id}}
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Amount: Rs.{{myOrder.order.amount}}</h5>
+          <hr>
+          <div class="card-text">
+              Customer: {{myOrder.order.customer.name}}
+              <hr>
+              Payment Type: {{myOrder.order.paymentType}}
+              <hr>
+              Status: {{myOrder.order.status}}<hr>
+          </div>
+          <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Code</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Stock</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let cartItem of myOrder.productList">
+                    <th scope="row">#{{cartItem.code}}</th>
+                    <td>{{cartItem.name}}</td>
+                    <td>
+                            
+                        {{cartItem.price}}
+                           
+
+
+                    </td>
+                    <td>{{cartItem.stock}}</td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+        <div class="card-footer text-muted">
+          {{myOrder.order.date | date: "dd.MM.y"}}
+        </div>
+        
+      </div>
+<!--end of detailed order-->
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>

@@ -1,0 +1,153 @@
+
+  <nav class="navbar navbar-primary text-white sticky-top position-sticky" style="background-color:indigo">
+          
+                  <div class="navbar-brand" href="#">
+                          <i class="material-icons">
+                                  shopping_cart
+                                  </i>
+                              </div>
+                  
+              
+                <div class="navbar-brand-centered" style="display: block; left: 50%">Cart</div> 
+            </nav>
+            <nav class="navbar navbar-light sticky-top position-sticky" style="background-color:white">
+          
+                        <div class="col-1">
+                                        <div class="navbar-brand" href="#">
+                                            
+                                                <i class="material-icons">
+                                                        perm_contact_calendar
+                                                        </i>
+                                
+                                            </div>
+                                </div>
+                  
+                                <div class="col-11">
+                                        <div class="input-group">
+                                                <input  (focus)="onKey($event)" (keyup)="onKey($event)" type="text" class="form-control" placeholder="Search Customer..." aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                <div class="input-group-append">
+                                                  <span class="input-group-text" id="basic-addon2"><i class="material-icons">
+                                                        search
+                                                        </i></span>
+                                                </div>
+                                            </div>
+                  
+                                            
+                                            <div class="input-group">
+                                                  <ul class="list-group input-group" style="z-index: 1; position: absolute;">
+                                                    <li class="list-group-item list-group-item-action" *ngFor="let customer of customers" (click)="onSelected(customer)">
+                                                            {{customer.name}}
+                                                    </li>                                  
+                                                  </ul>
+                                                </div>
+                                </div>
+                        
+                 
+                
+                              
+
+            </nav>
+
+            <div class="container-fluid text-center text-white bg-secondary">
+                
+            <div *ngIf='selectedCustomer' class="row">
+
+                        <div class="col-1">
+                                        <i class="material-icons">person_pin</i>
+
+                        </div>
+                        <div class="col-1">
+                            <button class="btn btn-sm btn-primary" (click)="getCart(selectedCustomer.id)"><i class="material-icons">refresh</i></button>
+                      
+                        </div>
+                        <div class="col-9">
+                                        {{selectedCustomer.name}}
+                                        
+                        </div>
+                        <div class="col-1">
+                                <button class="btn btn-sm btn-danger" (click)="deleteCart(selectedCustomer)"><i class="material-icons">remove_shopping_cart</i></button>
+                        </div>
+        
+                    </div>
+        
+
+            </div>
+
+
+            <table *ngIf='cartItems' class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Amount</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let cartItem of cartItems">
+                            <th scope="row">{{cartItem.product.id}}</th>
+                            <td>{{cartItem.product.name}}</td>
+                            <td>
+                                    <div class="badge badge-danger" (click)="dec(cartItem.product)"><i class="material-icons">remove</i></div>
+                                    
+                                {{cartItem.quantity}}
+                                <div class="badge badge-success" (click)="inc(cartItem.product)"><i class="material-icons">add</i></div>
+                                    
+
+
+                            </td>
+                            <td>{{cartItem.product.price * cartItem.quantity}}</td>
+                          </tr>
+                        </tbody>
+                        
+                      </table>
+                      <button *ngIf='cartItems.length>0' type="button" class="btn btn-lg btn-block text-white" style="background-color:indigo" data-toggle="modal" data-target="#exampleModalLong">Checkout <span class="text-right">Rs. {{amount}}</span></button>
+
+<!--orderplacer-->
+
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Review...</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <table *ngIf='cartItems' class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let cartItem of cartItems">
+                    <th scope="row">{{cartItem.product.id}}</th>
+                    <td>{{cartItem.product.name}}</td>
+                    <td>
+                           
+                        {{cartItem.quantity}}
+                            
+
+
+                    </td>
+                    <td>{{cartItem.product.price * cartItem.quantity}}</td>
+                  </tr>
+                </tbody>
+                
+              </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="saveOrder()" class="btn btn-secondary" data-dismiss="modal">Save Order</button>
+          <button type="button" (click)="placeOrder()" class="btn btn-success" data-dismiss="modal">Place Order</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<!--end of orderplacer-->
